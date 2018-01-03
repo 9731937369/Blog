@@ -1,0 +1,7 @@
+<% if @category.errors.any?%>
+	$('errors').html("<%= @category.errors.full_messages.join(", ")%>");
+<% else %>
+	$('errors').hide();
+	$('#dataList').append("<%= escape_javascript render('category')%>")
+	$('#new_category')[0].reset();
+<% end %>

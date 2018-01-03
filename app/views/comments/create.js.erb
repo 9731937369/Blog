@@ -1,0 +1,7 @@
+<% if @comment.errors.any? %>
+	 $('#errors').html("<%= @comment.errors.full_messages_join(", ")%>")
+<% else %>
+$('errors').hide();
+$('#commentList').append("<%= escape_javascript render('comment')%>");
+$('#new_comment')[0].reset();
+<% end %>

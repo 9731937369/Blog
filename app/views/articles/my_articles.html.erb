@@ -1,0 +1,13 @@
+<div class = "container">
+
+<% if @articles.empty?%>
+	<b> You have no articles </b>
+<% else %>
+	<h3><i class = "glyphicon glyphicon-th-list"></i> My Articles</h3>
+	<ol>
+		<% @articles.each do |article|%>
+			<li> <%= link_to article.title, article_path(article.slug) %> - <%= article.category.name%> </li>
+		<% end %>
+	</ol>
+<% end %>
+</div>

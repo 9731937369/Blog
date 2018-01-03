@@ -1,0 +1,16 @@
+<h3>Hai <%= @comment.article.user.username %> </h3>
+You got a new comment
+
+ <%#= @comment.title %>  <%#= @comment.description%>
+<table border="1">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<td><%= @comment.title %></td>
+		<td><%= @comment.description%></td>
+	</tbody>
+</table>

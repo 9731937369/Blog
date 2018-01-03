@@ -1,0 +1,37 @@
+<%= form_for @article do |f| %>
+	
+	<% if @article.errors.any? %>
+		<h3>These are validations failed: </h3>
+		<ul>
+			<% @article.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<div class = "form-group">
+	<label>Category</label><br/>
+	<%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "Select Category"},{class: "form-control"} %> <br/>
+</div>
+<div class = "form-group">
+	<label>Title</label><br/>
+	<%= f.text_field :title,class: "form-control" %><br/>
+</div>
+<div class = "form-group">
+	<label>Body</label><br/>
+	<%= f.text_area :body, class: "form-control" %><br/> 
+</div>
+<div class = "form-group">
+	<label>Feature image url</label><br/>
+	<%= f.text_field :feature_image_url, class: "form-control"  %><br/>
+</div>
+<div class=" form-group">
+	<label> Publish Date</label><br/>
+	<%= f.datetime_select :publish_date, class: "form-control"  %> <br/>
+</div>
+<div>
+	<label>Is_Published</label><br/>
+	<%= f.check_box :is_published %> <br/>
+</div>
+	<%= f.submit "Submit", class: "btn btn-primary"%>
+<% end %>
+

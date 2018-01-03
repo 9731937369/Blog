@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<table class = "table" id="dataList" >
+				<thead>
+				<h3><i class = "glyphicon glyphicon-th-list"></i>Categories</h3>
+					<tr>
+						<th>Name</th>
+						<th>Articles</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody >
+					<% @categories.each_with_index do |category,index| %>
+					<tr id = "row_<%= category.id%>">
+						<td><%= link_to category.name, category_path(category.slug) %></td>
+						<td><%= Article.where('category_id = ?',category.id).count %></td>
+						<td>
+							<% if user_signed_in? && current_user.is_admin %>
+							
+								<%= link_to edit_category_path(category.id) do %><i class="glyphicon glyphicon-pencil"></i>
+								<% end %>
+							
+								<%= link_to category_path(category.id), method: :delete, data:{confirm: "Are you sure to delete?"}, remote: true do %>
+								<i class="glyphicon glyphicon-trash"></i>
+								<% end %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-4">
+		<h2> Add Category</h2>
+			<span id = "errors"></span>
+				<%= form_for(@category, remote: true) do |f| %>
+
+					<% if @category.errors.any? %>
+						<h3>These are validations failed: </h3>
+						<ul>
+							<% @category.errors. full_messages.each do |msg| %>
+								<li><%= msg %></li>
+							<% end %>
+						</ul>
+					<% end %>
+				<div class = "form-group">
+
+					<label>Name</label><br/>
+					<%= f.text_field :name, class: "form-control" %><br/> 
+				</div>
+				<div class = "form-group">
+					<label>Description</label><br/>
+					<%= f.text_field :description,class: "form-control"%><br/> 
+				</div>
+					<%= f.submit "Submit", class: "btn btn-primary" %>
+
+				<% end %>
+		</div>
+	</div>
+</div>

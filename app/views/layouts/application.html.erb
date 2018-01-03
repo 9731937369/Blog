@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src = "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js "></script>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.min.js"></script>
+
+
+
+  <link href = "//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel = "stylesheet" />
+  <link href = "https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.css" rel = "stylesheet"/>
+
+</head>
+<body>
+<div class = "container">
+  <nav class="navbar navbar-inverse" style="background-color:#41f48c">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Blog</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Categories", categories_path %></li>
+        <li><%= link_to "Articles", articles_path %></li>
+        <%if user_signed_in? %>
+        	<li><%= link_to "My Articles", articles_my_articles_path %></li>
+       		<li><%#= link_to "My Comments", comments_my_comments_path %></li>
+        <%end%>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class = "glyphicon glyphicon-user"></i><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% if user_signed_in? %>
+              <li><%= link_to  edit_user_registration_path do %>
+                <i class = "glyphicon glyphicon-cog"></i>Account Setting  
+                <% end %>
+              </li>
+              <li><%= link_to destroy_user_session_path, method: :delete do %>
+                  <i class ="glyphicon glyphicon-log-out"></i>  Logout
+                  <% end %>
+              </li>
+            <% else %>
+              <li><%= link_to new_user_session_path do %>
+                <i class = "glyphicon glyphicon-log-in"></i>  Sign In
+                  <%end%>
+              </li>
+            <% end %> 
+          </ul>
+        </li>
+      </ul>
+  </div>
+  </nav>
+
+  <% if notice %>
+    <div  class = "alert alert-success">
+    <%= notice%>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div  class = "alert alert-success">
+    <%= alert%>
+    </div>
+  <% end %>
+</div>
+<%= yield %>
+
+</body>
+</html>

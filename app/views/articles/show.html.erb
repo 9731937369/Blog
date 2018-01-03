@@ -1,0 +1,76 @@
+
+<div class = "container">
+
+	<div class ="col-md-8">
+		<h2> <%= @article.title %></h2>
+			Publish Date : <%= @article.publish_date %>
+	</div>
+
+	<br/><br/><br/>
+
+	<div class = "col-md-4" >
+	<% if !@article.category.nil? %>
+		<h4>Category : <%= link_to @category.name, category_path(@category.slug) %></h4>
+	<% else %>
+		 <h4>Category : Uncategoriged</h4>
+	<% end %>
+	</div>
+	<br/><br/><br/><br/>
+
+	<div class = "col-md-8">
+		<%= image_tag(@article.feature_image_url, :size => "730x300") %>
+	</div>
+
+	<div class = "col-md-4">
+		<h2>Add comment </h2>
+		<span id ="errors">
+			
+		</span>
+		<%#= form_for @comment do |f| %>
+		<%= form_for(@comment,remote: true) do |f| %>
+			<% if @comment.errors.any? %>
+	    		<ul>
+		      		<% @comment.errors.full_messages.each do |message| %>
+		       			<li><%= message %></li>
+		   			<% end %>
+	    		</ul>
+	  		<% end %>
+			<%= f.hidden_field :article_id, value: @article.id %>
+			<div class = "form-group">
+				<label>Title</label><br/>
+				<%= f.text_field :title, class: "form-control" %><br/>
+			</div>
+			<div class = "form-group">
+				<label>Description</label><br/>
+				<%= f.text_area :description, class: "form-control" %><br/>
+			</div>
+			<%= f.submit "Submit", class: "btn btn-primary"%>
+		<% end %>
+	</div>
+	
+	<div class = "col-md-8">
+	<h3>Description</h3>
+		<p class = "text-justify"><%= @article.body %></p>
+	</div>
+	
+	<div class = "col-md-4">
+	<h2>Listing Comments</h2>
+	 <% if @article.comments.empty? %>
+	 	<b>No comments found .Be the first to add comment.</b>
+	 <%else%>
+	 	<ul id = "row_<%= @comment.id %>">
+	 		<% @article.comments.each do |comment| %>
+	 			<li id = "commentList">
+		 			<%= comment.title %> - <%= comment.description%> 
+		 			<% if user_signed_in? && (comment.user_id == current_user.id || current_user.is_admin) %>
+						<%= link_to "Remove",comment_path(comment.id), method: :delete, data: {confirm: "are you sure"}, remote: true %>
+					<% end %>
+					<% if user_signed_in? && (@article.user_id == current_user.id || current_user.is_admin )%>
+						<%= link_to "edit",edit_comment_path(comment.id) %>  
+					<% end %>
+					</li>
+
+	 		<% end %>
+		</ul>
+	<% end %>
+	</div>

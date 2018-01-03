@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+<div class ="container">
+<h2><%= @category.name %></h2>
+<!-- <h4>The description is : <%#= @category.description %></h4> -->
+
+<% if @category.articles.empty? %>
+	<h3> No Products found</h3>
+<% else %><br>
+	<h4>Articles <%= @category.articles.size %></h4>
+	<ul>
+		<% @category.articles.each do |article| %>
+			<li><%= link_to article.title, article_path(article.slug) %></li>
+		<% end %>
+	</ul>
+<% end %>
+</div>
+</body></html>

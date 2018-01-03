@@ -1,0 +1,12 @@
+<h1> My Comments </h1>
+
+<% if @comments.empty?%>
+	<b>You have not commented yet</b>
+<% else %>
+	<ol>
+		<% @comments.each do |comment| %>
+ 			<li> <%= comment.title %> - <%= comment.description %> </li>
+ 		<% end %>
+ 	</ol>
+ <% end %>
+

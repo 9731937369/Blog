@@ -1,0 +1,54 @@
+
+<%# if user_signed_in?%>
+	<%#= link_to "Add Article", new_article_path %>
+<%# else %>
+  <%#= link_to "Add Article", new_user_session_path %> 
+<%# end %> 
+
+<!-- <h1> Listing Articles - <%#= @articles.length%></h1> -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<table class = "table" id = "articleList">
+				<thead>
+				<h3><i class = "glyphicon glyphicon-th-list"></i>Articles</h3>
+					<tr>
+						<th>Sl.No</th>
+						<th>Title</th>
+						<th>category</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @articles.each_with_index do |article,index| %>
+						<tr>
+							<td><%= index + 1 %></td>
+							<td><%= link_to article.title, article_path(article.slug) %></td>
+							<%if !article.category.nil? %>
+							<td><%= article.category.name  %></td>
+							<%else%>
+								<td>Uncategorized</td>
+							<%end%>
+							<td>
+								<% if user_signed_in? && (article.user_id == current_user.id ||current_user.is_admin )%>
+									<%= link_to edit_article_path(article.id) do %><i class = "glyphicon glyphicon-pencil"></i>
+									<% end %>
+								<%end%>
+								<% if user_signed_in? && current_user.is_admin %>
+									<%= link_to article_path(article.id),method: :delete, data: {confirm: "are you sure"} do %>
+										<i class="glyphicon glyphicon-trash"></i>
+									<%end%>
+								<%end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+	</div>
+		<div class = "col-md-4">
+		<h3>Add Article</h3>
+		<%= render "form"%>
+		</div>
+	</div>
+</div>
+

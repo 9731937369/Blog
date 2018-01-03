@@ -1,0 +1,15 @@
+<tr id = "row_<%= @category.id%>">
+	<td><%= link_to @category.name, category_path(@category.slug) %></td>
+	<td><%= Article.where('category_id = ?',@category.id).count %></td>
+	<% if user_signed_in? && current_user.is_admin %>
+		<td>
+			<%= link_to edit_category_path(@category.id) do %><i class="glyphicon glyphicon-pencil"></i>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to category_path(@category.id), method: :delete, data:{confirm: "Are you sure to delete?"}, remote: true  do  %>
+			<i class="glyphicon glyphicon-trash"></i>
+			<% end %>
+		</td>
+	<% end %>
+</tr>
