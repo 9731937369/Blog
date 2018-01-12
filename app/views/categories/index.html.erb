@@ -33,6 +33,7 @@
 		</div>
 
 		<div class="col-md-4">
+		<% if user_signed_in? && current_user.is_admin?%>
 		<h2> Add Category</h2>
 			<span id = "errors"></span>
 				<%= form_for(@category, remote: true) do |f| %>
@@ -58,5 +59,6 @@
 
 				<% end %>
 		</div>
+		<%end%>
 	</div>
 </div>

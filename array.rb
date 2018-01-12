@@ -1,0 +1,2 @@
+p = "shiva"
+puts = "shiva"

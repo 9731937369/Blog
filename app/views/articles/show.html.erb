@@ -18,7 +18,9 @@
 	<br/><br/><br/><br/>
 
 	<div class = "col-md-8">
-		<%= image_tag(@article.feature_image_url, :size => "730x300") %>
+		<!-- <img class="img-responsive" src="<%= @article.feature_image_url%>" alt="" width="700px" > -->
+		<h3>Description</h3>
+		<p class = "text-justify"><%= @article.body %></p>
 	</div>
 
 	<div class = "col-md-4">
@@ -48,10 +50,7 @@
 		<% end %>
 	</div>
 	
-	<div class = "col-md-8">
-	<h3>Description</h3>
-		<p class = "text-justify"><%= @article.body %></p>
-	</div>
+	
 	
 	<div class = "col-md-4">
 	<h2>Listing Comments</h2>
